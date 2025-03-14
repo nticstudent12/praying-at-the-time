@@ -20,6 +20,16 @@ import { cn } from '@/lib/utils';
 
 const predefinedLocations: LocationOption[] = [
   {
+    value: 'algeria',
+    label: 'Algiers, Algeria',
+    location: {
+      city: 'Algiers',
+      country: 'Algeria',
+      latitude: 36.7538,
+      longitude: 3.0588,
+    },
+  },
+  {
     value: 'mecca',
     label: 'Mecca, Saudi Arabia',
     location: {
