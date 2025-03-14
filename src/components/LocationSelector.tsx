@@ -18,16 +18,21 @@ interface LocationSelectorProps {
 
 const LocationSelector = ({ onLocationChange }: LocationSelectorProps) => {
   const [open, setOpen] = useState(false);
-  const [selectedLocation, setSelectedLocation] = useState<LocationOption>(predefinedLocations[0]);
+  // Find Constantine in predefined locations and set as default
+  const constantineLocation = predefinedLocations.find(loc => loc.value === 'constantine') || predefinedLocations[0];
+  const [selectedLocation, setSelectedLocation] = useState<LocationOption>(constantineLocation);
   const { userLocation } = useUserLocation();
 
   useEffect(() => {
-    // When user location is available, set it as selected
-    if (userLocation) {
+    // Only use user location if the user specifically selects it
+    if (userLocation && selectedLocation.value === 'current') {
       setSelectedLocation(userLocation);
       onLocationChange(userLocation);
+    } else {
+      // Set Constantine as initial location and trigger change
+      onLocationChange(selectedLocation);
     }
-  }, [userLocation, onLocationChange]);
+  }, [userLocation, onLocationChange, selectedLocation]);
 
   const handleLocationSelect = (locationValue: string) => {
     // Find the selected location from either predefined or user's current location
@@ -36,7 +41,7 @@ const LocationSelector = ({ onLocationChange }: LocationSelectorProps) => {
     if (locationValue === 'current' && userLocation) {
       location = userLocation;
     } else {
-      location = predefinedLocations.find(loc => loc.value === locationValue) || predefinedLocations[0];
+      location = predefinedLocations.find(loc => loc.value === locationValue) || constantineLocation;
     }
     
     setSelectedLocation(location);

@@ -7,6 +7,7 @@ import NextPrayer from '@/components/NextPrayer';
 import { Location, LocationOption } from '@/types';
 import { usePrayerTimes, getCurrentPrayer, getNextPrayer } from '@/hooks/usePrayerTimes';
 import { Loader2 } from 'lucide-react';
+import { predefinedLocations } from '@/data/predefinedLocations';
 
 // Map prayer names to Arabic names
 const prayerNameMap = {
@@ -19,12 +20,17 @@ const prayerNameMap = {
 };
 
 const Index = () => {
-  const [selectedLocation, setSelectedLocation] = useState<Location>({
-    city: 'Mecca',
-    country: 'Saudi Arabia',
-    latitude: 21.3891,
-    longitude: 39.8579,
-  });
+  // Find Constantine in predefined locations
+  const constantineLocation = predefinedLocations.find(loc => loc.value === 'constantine');
+  
+  const [selectedLocation, setSelectedLocation] = useState<Location>(
+    constantineLocation ? constantineLocation.location : {
+      city: 'Constantine',
+      country: 'Algeria',
+      latitude: 36.3650,
+      longitude: 6.6147,
+    }
+  );
 
   const { prayerTimes, loading, error } = usePrayerTimes(selectedLocation);
   const [currentPrayer, setCurrentPrayer] = useState<string | null>(null);
