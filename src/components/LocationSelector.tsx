@@ -30,6 +30,16 @@ const predefinedLocations: LocationOption[] = [
     },
   },
   {
+    value: 'constantine',
+    label: 'Constantine, Algeria',
+    location: {
+      city: 'Constantine',
+      country: 'Algeria',
+      latitude: 36.3650,
+      longitude: 6.6147,
+    },
+  },
+  {
     value: 'mecca',
     label: 'Mecca, Saudi Arabia',
     location: {
